@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react';
-import { analytics } from '../config'
+import { analytics } from './config';
 
 function App() {
   return (
