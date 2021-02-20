@@ -1,11 +1,12 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react';
 import { analytics } from './config';
+import { Route } from 'react-router-dom';
+import Homepage from './pages/homepage';
 
-function App() {
+function App(): JSX.Element {
   return (
     <div className="App">
-      <p>Test App Preview</p>
+      <Route exact path="/" component={Homepage} />
       {analytics.logEvent('Visited Homepage')}
     </div>
   );
