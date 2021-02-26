@@ -15,7 +15,6 @@ const Prototype = (props: any): JSX.Element => {
 
   async function getToken(roomName: string): Promise<void> {
     try {
-      console.log('running');
       const res = await axios.post(`${backendURL}/accessToken`, {
         room: roomName,
         sid: '',
@@ -28,7 +27,6 @@ const Prototype = (props: any): JSX.Element => {
         setError('Token does not exist');
       }
     } catch (err) {
-      console.log(err);
       setError(err.message);
     }
   }
