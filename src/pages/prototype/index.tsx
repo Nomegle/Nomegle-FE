@@ -57,26 +57,6 @@ const Prototype = (props: any) : JSX.Element => {
                 tracks: localtracks
             }).then(room => {
                 setRoom(room)
-                room.on('participantConnected', participant => {
-                    const otherVideo : HTMLElement | null = document.getElementById('otherVideo')
-                    const name = document.createElement('p')
-                    name.innerHTML = participant.identity;
-                    otherVideo?.appendChild(name)
-                    participant.tracks.forEach(publication => {
-                        if (publication.isSubscribed) {
-                          const track : any = publication.track;
-                          const otherVideo : any = document.getElementById('otherVideo');
-                          otherVideo.appendChild(track.attach());
-                        }
-                      });
-                    
-                      participant.on('trackSubscribed', (track : any) => {
-                        const otherVideo : any = document.getElementById('otherVideo')
-                        if (otherVideo.children.length === 0) {
-                            otherVideo.appendChild(track.attach());
-                        }
-                      });
-                    });
                 })
             })
     }
@@ -95,6 +75,28 @@ const Prototype = (props: any) : JSX.Element => {
             createRoom(token)
         }
     }, [token])
+
+
+    room?.on('participantConnected', (participant : any) => {
+        const otherVideo : HTMLElement | null = document.getElementById('otherVideo')
+        const name = document.createElement('p')
+        name.innerHTML = participant.identity;
+        otherVideo?.appendChild(name)
+        participant.tracks.forEach((publication : any) => {
+            if (publication.isSubscribed) {
+              const track : any = publication.track;
+              const otherVideo : any = document.getElementById('otherVideo');
+              otherVideo.appendChild(track.attach());
+            }
+          });
+        
+          participant.on('trackSubscribed', (track : any) => {
+            const otherVideo : any = document.getElementById('otherVideo')
+            if (otherVideo.children.length === 0) {
+                otherVideo.appendChild(track.attach());
+            }
+        });
+    });
 
     return (
         <div id="page">
